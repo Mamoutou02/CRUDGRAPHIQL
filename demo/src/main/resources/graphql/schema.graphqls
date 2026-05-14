@@ -1,39 +1,83 @@
+
+# =========================
+# Types principaux
+# =========================
+
+# Représente un livre
 type Book {
-    id: ID!
-    title: String!
-    pageCount: Int
-    author: Author
+id: ID!
+title: String!
+pageCount: Int
+author: Author
 }
 
+# Représente un auteur
 type Author {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    books: [Book]
+id: ID!
+firstName: String!
+lastName: String!
+
+# Liste des livres écrits par l’auteur
+books: [Book]
 }
 
+# =========================
+# Inputs (données envoyées)
+# =========================
+
+# Données nécessaires pour créer ou modifier un livre
 input BookInput {
-    title: String!
-    pageCount: Int
-    authorId: ID
+title: String!
+pageCount: Int
+authorId: ID
 }
 
+# Données nécessaires pour créer un auteur
 input AuthorInput {
-    firstName: String!
-    lastName: String!
+firstName: String!
+lastName: String!
 }
+
+# =========================
+# Queries (Lecture des données)
+# =========================
 
 type Query {
-    bookById(id: ID!): Book
-    allBooks: [Book]
-    allAuthors: [Author]
-    authorById(id: ID!): Author
+
+# Récupérer un livre par son ID
+bookById(id: ID!): Book
+
+# Récupérer tous les livres
+allBooks: [Book]
+
+# Récupérer tous les auteurs
+allAuthors: [Author]
+
+# Récupérer un auteur par son ID
+authorById(id: ID!): Author
 }
+
+# =========================
+# Mutations (Modification des données)
+# =========================
 
 type Mutation {
-    addBook(bookInput: BookInput!): Book
-    updateBook(id: ID!, bookInput: BookInput): Book
-    deleteBook(id: ID!): Boolean
 
-    addAuthor(authorInput: AuthorInput!): Author
+# Ajouter un nouveau livre
+addBook(bookInput: BookInput!): Book
+
+# Modifier un livre existant
+updateBook(id: ID!, bookInput: BookInput): Book
+    # Modifier un livre existant
+    updateAuthor(id: ID!, AuthorInput: AuthorInput): Author
+
+# Supprimer un livre par son ID
+deleteBook(id: ID!): Boolean
+
+    # Supprimer un author par son ID
+    deleteAuthor(id: ID!): Boolean
+
+# Ajouter un nouvel auteur
+addAuthor(authorInput: AuthorInput!): Author
 }
+
